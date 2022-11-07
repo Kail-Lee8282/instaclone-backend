@@ -30,17 +30,17 @@ const resolvers = {
 
         // 받은 메시지가 같은 채팅방인지 체크
         return withFilter(
-          () => pubsub.asyncIterator(NEW_MESSAGE),
+          () => pubsub.asyncIterator([NEW_MESSAGE]),
           async ({ roomUpdates }, { id }, { loginUser }) => {
             // Listen after
-
+            console.log("roomUpdates", roomUpdates);
             if (roomUpdates.roomId === id) {
               const room = await client.room.findFirst({
                 where: {
                   id: args.id,
                   users: {
                     some: {
-                      id: context.loginUser.id,
+                      id: loginUser.id,
                     },
                   },
                 },

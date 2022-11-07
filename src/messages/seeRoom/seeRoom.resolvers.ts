@@ -13,6 +13,9 @@ const resolvers: Resolvers = {
             },
           },
         },
+        orderBy: {
+          createAt: "desc",
+        },
       })
     ),
   },

@@ -1,5 +1,11 @@
 export default {
   User: {
+    totalPhotos: ({ id }, _, { client }) =>
+      client.photo.count({
+        where: {
+          userId: id,
+        },
+      }),
     totalFollowing: ({ id }, _, { client }) =>
       client.user.count({
         where: {

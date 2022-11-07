@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "nodemon --exec ts-node src/server --ext ts,js --delay 2s",
     "migrate": "npx prisma migrate dev",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "build":"babel src --out-dir build",
+    "start":"node built/server"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   },
   "homepage": "https://github.com/Kail-Lee8282/instaclone-backend#readme",
   "dependencies": {
+    "@babel/cli": "^7.19.3",
     "@graphql-tools/load-files": "^6.6.1",
     "@graphql-tools/merge": "^8.3.6",
     "@graphql-tools/schema": "^9.0.4",
@@ -27,6 +30,7 @@
     "aws-sdk": "^2.1231.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.2",
+    "graphql": "^15.8.0",
     "graphql-subscriptions": "^2.0.0",
     "graphql-upload": "^13.0.0",
     "graphql-ws": "^5.11.2",

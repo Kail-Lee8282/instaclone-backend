@@ -40,7 +40,7 @@ const PORT = process.env.PORT;
 
 async function startApolloServer() {
   const app = express();
-  //app.use(logger("tiny"));
+  app.use(logger("tiny"));
   app.use(graphqlUploadExpress());
   app.use("/static", express.static("uploads"));
 

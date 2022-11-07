@@ -4,11 +4,13 @@ export default gql`
   type Message {
     id: Int!
     payload: String!
-    user: User!
+    user: User
+    userId: Int
     room: Room!
+    roomId: Int
     read: Boolean!
-    createdAt: String!
-    updatedAt: String!
+    createAt: String!
+    updateAt: String!
   }
 
   type Room {

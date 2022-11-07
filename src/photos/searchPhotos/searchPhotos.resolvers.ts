@@ -6,7 +6,8 @@ const resolvers: Resolvers = {
       client.photo.findMany({
         where: {
           caption: {
-            startsWith: keyword,
+            contains: keyword,
+            mode: "insensitive",
           },
         },
       }),

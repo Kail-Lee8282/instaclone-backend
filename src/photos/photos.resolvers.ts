@@ -1,4 +1,3 @@
-import client from "../client";
 import { Resolvers } from "../types";
 
 const resolvers: Resolvers = {
@@ -9,7 +8,7 @@ const resolvers: Resolvers = {
           id: userId,
         },
       }),
-    hashtags: ({ id }) =>
+    hashtags: ({ id }, _, { client }) =>
       client.hashtag.findMany({
         where: {
           photos: {
@@ -19,16 +18,25 @@ const resolvers: Resolvers = {
           },
         },
       }),
-    likes: ({ id }) =>
+    likes: ({ id }, _, { client }) =>
       client.like.count({
         where: {
           photoId: id,
         },
       }),
-    comments: ({ id }) =>
+    commentCount: ({ id }, _, { client }) =>
       client.comment.count({
         where: {
           photoId: id,
+        },
+      }),
+    comments: ({ id }, _, { client }) =>
+      client.comment.findMany({
+        where: {
+          photoId: id,
+        },
+        include: {
+          user: true,
         },
       }),
     isMine: ({ userId }, _, { loginUser }) => {
@@ -37,9 +45,31 @@ const resolvers: Resolvers = {
       }
       return userId === loginUser.id;
     },
+    isLiked: async ({ id }, _, { loginUser, client }) => {
+      if (!loginUser) {
+        return false;
+      }
+
+      const ok = await client.like.findUnique({
+        where: {
+          photoId_userId: {
+            photoId: id,
+            userId: loginUser.id,
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (!ok) {
+        return false;
+      }
+      return true;
+    },
   },
   Hashtag: {
-    photos: ({ id }, { page }) => {
+    photos: ({ id }, { page }, { client }) => {
       return client.hashtag
         .findUnique({
           where: {

@@ -16,6 +16,7 @@ export default gql`
     followers: [User]
     totalFollowing: Int!
     totalFollowers: Int!
+    totalPhotos: Int!
     isMe: Boolean!
     isFollowing: Boolean!
   }
