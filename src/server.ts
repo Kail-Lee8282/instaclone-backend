@@ -80,6 +80,7 @@ async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    introspection: true,
     context: async ({ req }) => {
       return {
         loginUser: await getUser(req.headers.token),
