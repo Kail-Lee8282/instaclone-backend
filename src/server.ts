@@ -11,7 +11,7 @@ import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { createServer } from "http";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-
+import { ApolloServerPluginLandingPageDisabled } from "apollo-server-core";
 // const server = new ApolloServer({
 //   typeDefs,
 //   resolvers,
@@ -98,6 +98,7 @@ async function startApolloServer() {
           };
         },
       },
+      ApolloServerPluginLandingPageDisabled(),
     ],
   });
 
